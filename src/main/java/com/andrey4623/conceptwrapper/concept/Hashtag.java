@@ -7,7 +7,7 @@ package com.andrey4623.conceptwrapper.concept;
 public class Hashtag extends Concept {
 
   public Hashtag(Border border) {
-    super(ConceptType.HASHTAG, border);
+    super(border);
   }
 
   @Override

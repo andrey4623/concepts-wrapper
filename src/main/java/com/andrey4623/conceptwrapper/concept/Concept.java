@@ -10,7 +10,6 @@ import java.util.OptionalInt;
 
 public abstract class Concept {
 
-  private final ConceptType conceptType;
   private final List<Border> borders;
 
   {
@@ -18,14 +17,12 @@ public abstract class Concept {
   }
 
   // Constructor for a basic concept: one border.
-  public Concept(ConceptType conceptType, Border border) {
-    this.conceptType = conceptType;
+  public Concept(Border border) {
     borders.add(border);
   }
 
   // Constructor for complex concepts: multiple borders.
-  public Concept(ConceptType conceptType, List<Border> borders) {
-    this.conceptType = conceptType;
+  public Concept(List<Border> borders) {
     this.borders.addAll(borders);
   }
 
@@ -78,10 +75,6 @@ public abstract class Concept {
    */
   protected String postprocess(String source) {
     return source;
-  }
-
-  public ConceptType getConceptType() {
-    return conceptType;
   }
 
   public List<Border> getBorders() {

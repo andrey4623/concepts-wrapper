@@ -7,7 +7,7 @@ package com.andrey4623.conceptwrapper.concept;
 public class Link extends Concept {
 
   public Link(Border border) {
-    super(ConceptType.LINK, border);
+    super(border);
   }
 
   @Override

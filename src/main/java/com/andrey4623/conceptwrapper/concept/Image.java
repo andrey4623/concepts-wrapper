@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Image extends Concept {
 
   public Image(Border imgUrl, Border alt) {
-    super(ConceptType.IMAGE, Arrays.asList(imgUrl, alt));
+    super(Arrays.asList(imgUrl, alt));
   }
 
   @Override

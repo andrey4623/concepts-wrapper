@@ -7,7 +7,7 @@ package com.andrey4623.conceptwrapper.concept;
 public class Twitter extends Concept {
 
   public Twitter(Border border) {
-    super(ConceptType.TWITTER_USERNAME, border);
+    super(border);
   }
 
   @Override
