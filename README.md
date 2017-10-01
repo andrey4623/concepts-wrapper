@@ -39,7 +39,7 @@ Adding new concepts is easy: create a new class and extend it from Concept. You 
 public class Hashtag extends Concept {
 
   public Hashtag(Border border) {
-    super(ConceptType.HASHTAG, border);
+    super(border);
   }
 
   @Override
@@ -54,7 +54,7 @@ If you want to use multiple borders:
 public class Image extends Concept {
 
   public Image(Border imgUrl, Border alt) {
-    super(ConceptType.IMAGE, Arrays.asList(imgUrl, alt));
+    super(Arrays.asList(imgUrl, alt));
   }
 
   @Override
@@ -66,7 +66,7 @@ public class Image extends Concept {
 
 If you want to add some preprocessing logic:
 ```java
-@Override
+  @Override
   protected String[] preprocess(String[] source) {
     source[0] = source[0].substring(1);
     return source;
