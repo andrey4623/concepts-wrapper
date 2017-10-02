@@ -10,18 +10,18 @@ import java.util.List;
 
 public class Wrapper {
 
-  public static String wrap(String source, List<Concept> concepts) {
+  public static String wrap(final String source, final List<Concept> concepts) {
     sort(concepts);
-    char[] arr = source.toCharArray();
+    final char[] arr = source.toCharArray();
     validateConcepts(arr, concepts);
     return doWrap(arr, concepts);
   }
 
-  private static void sort(List<Concept> concepts) {
+  private static void sort(final List<Concept> concepts) {
     concepts.sort(Comparator.comparingInt(Concept::getMinLeftPosition));
   }
 
-  private static void validateConcepts(char[] sourceCharArray, List<Concept> concepts) {
+  private static void validateConcepts(final char[] sourceCharArray, final List<Concept> concepts) {
     if (concepts.isEmpty()) {
       return;
     }
@@ -33,14 +33,8 @@ public class Wrapper {
     }
   }
 
-  private static void copy(int from, int to, char[] arr, StringBuilder out) {
-    for (int i = from; i < to; i++) {
-      out.append(arr[i]);
-    }
-  }
-
-  private static String doWrap(char[] arr, List<Concept> concepts) {
-    StringBuilder out = new StringBuilder();
+  private static String doWrap(final char[] arr, final List<Concept> concepts) {
+    final StringBuilder out = new StringBuilder();
 
     int pos = 0;
     int idxConcept = 0;
@@ -67,9 +61,15 @@ public class Wrapper {
     return out.toString();
   }
 
-  private static boolean isConceptBorderEligible(Concept concept, int sourceStringLength) {
+  private static boolean isConceptBorderEligible(final Concept concept, final int sourceStringLength) {
     return concept.getMinLeftPosition() >= 0 && concept.getMinLeftPosition() < sourceStringLength
         && concept.getMaxRightPosition() >= concept.getMinLeftPosition()
         && concept.getMaxRightPosition() <= sourceStringLength;
+  }
+
+  private static void copy(final int from, final int to, final char[] arr, final StringBuilder out) {
+    for (int i = from; i < to; i++) {
+      out.append(arr[i]);
+    }
   }
 }

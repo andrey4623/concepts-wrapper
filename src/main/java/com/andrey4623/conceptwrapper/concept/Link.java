@@ -6,7 +6,7 @@ package com.andrey4623.conceptwrapper.concept;
 
 public class Link extends Concept {
 
-  public Link(Border border) {
+  public Link(final Border border) {
     super(border);
   }
 

@@ -6,7 +6,7 @@ package com.andrey4623.conceptwrapper.concept;
 
 public class Entity extends Concept {
 
-  public Entity(Concept.Border border) {
+  public Entity(final Concept.Border border) {
     super(border);
   }
 

@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Image extends Concept {
 
-  public Image(Border imgUrl, Border alt) {
+  public Image(final Border imgUrl, final Border alt) {
     super(Arrays.asList(imgUrl, alt));
   }
 

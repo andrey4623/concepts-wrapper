@@ -6,7 +6,7 @@ package com.andrey4623.conceptwrapper.concept;
 
 public class Twitter extends Concept {
 
-  public Twitter(Border border) {
+  public Twitter(final Border border) {
     super(border);
   }
 
@@ -16,7 +16,7 @@ public class Twitter extends Concept {
   }
 
   @Override
-  protected String[] preprocess(String[] source) {
+  protected String[] preprocess(final String[] source) {
     source[0] = source[0].substring(1);
     return source;
   }

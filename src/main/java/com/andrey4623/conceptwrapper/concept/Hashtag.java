@@ -6,7 +6,7 @@ package com.andrey4623.conceptwrapper.concept;
 
 public class Hashtag extends Concept {
 
-  public Hashtag(Border border) {
+  public Hashtag(final Border border) {
     super(border);
   }
 

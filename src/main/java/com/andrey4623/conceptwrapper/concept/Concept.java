@@ -17,36 +17,30 @@ public abstract class Concept {
   }
 
   // Constructor for a basic concept: one border.
-  public Concept(Border border) {
+  public Concept(final Border border) {
     borders.add(border);
   }
 
   // Constructor for complex concepts: multiple borders.
-  public Concept(List<Border> borders) {
+  public Concept(final List<Border> borders) {
     this.borders.addAll(borders);
   }
 
-  protected abstract String getFormatString();
-
-  public String format(char[] source) {
+  public String format(final char[] source) {
     if (borders.isEmpty()) {
       throw new IllegalStateException("No borders");
     }
 
     String[] input = getStringsArrayFromBorders(source);
     input = preprocess(input);
-    String formatted = doFormat(input);
+    final String formatted = doFormat(input);
 
     return postprocess(formatted);
   }
 
-  private String doFormat(String[] input) {
-    return String.format(getFormatString(), input);
-  }
-
-  private String[] getStringsArrayFromBorders(char[] source) {
-    String[] res = new String[borders.size()];
-    StringBuilder sb = new StringBuilder();
+  private String[] getStringsArrayFromBorders(final char[] source) {
+    final String[] res = new String[borders.size()];
+    final StringBuilder sb = new StringBuilder();
 
     for (int i = 0; i < borders.size(); i++) {
       for (int j = borders.get(i).getPosStart(); j < borders.get(i).getPosEnd(); j++) {
@@ -66,24 +60,29 @@ public abstract class Concept {
   Override this method to add some preprocessing work.
   For example, for twitter the first symbol "@" could be removed.
    */
-  protected String[] preprocess(String[] source) {
+  protected String[] preprocess(final String[] source) {
     return source;
+  }
+
+  private String doFormat(final String[] input) {
+    return String.format(getFormatString(), input);
   }
 
   /*
   Override this method to add some postprocessing work.
    */
-  protected String postprocess(String source) {
-    return source;
+  protected String postprocess(final String postprocess) {
+    return postprocess;
   }
+
+  protected abstract String getFormatString();
 
   public List<Border> getBorders() {
     return borders;
   }
 
   public int getMinLeftPosition() {
-    OptionalInt min = borders.stream().mapToInt(b -> b.posStart).min();
-
+    final OptionalInt min = borders.stream().mapToInt(b -> b.posStart).min();
     if (min.isPresent()) {
       return min.getAsInt();
     } else {
@@ -92,7 +91,7 @@ public abstract class Concept {
   }
 
   public int getMaxRightPosition() {
-    OptionalInt max = borders.stream().mapToInt(b -> b.posEnd).max();
+    final OptionalInt max = borders.stream().mapToInt(b -> b.posEnd).max();
     if (max.isPresent()) {
       return max.getAsInt();
     } else {
@@ -105,7 +104,7 @@ public abstract class Concept {
     private int posStart;
     private int posEnd;
 
-    public Border(int posStart, int posEnd) {
+    public Border(final int posStart, final int posEnd) {
       this.posStart = posStart;
       this.posEnd = posEnd;
     }
@@ -114,7 +113,7 @@ public abstract class Concept {
       return posStart;
     }
 
-    public void setPosStart(int posStart) {
+    public void setPosStart(final int posStart) {
       this.posStart = posStart;
     }
 
@@ -122,7 +121,7 @@ public abstract class Concept {
       return posEnd;
     }
 
-    public void setPosEnd(int posEnd) {
+    public void setPosEnd(final int posEnd) {
       this.posEnd = posEnd;
     }
   }

@@ -14,10 +14,10 @@ class ConceptTest {
 
   @Test
   void getMinLeftPosition() {
-    Entity e = new Entity(new Concept.Border(1, 5));
+    final Entity e = new Entity(new Concept.Border(1, 5));
     assertEquals(1, e.getMinLeftPosition());
 
-    List<Border> borders = e.getBorders();
+    final List<Border> borders = e.getBorders();
     borders.clear();
     borders.add(new Concept.Border(1, 5));
     borders.add(new Concept.Border(3, 20));
@@ -31,10 +31,10 @@ class ConceptTest {
 
   @Test
   void getMaxRightPosition() {
-    Entity e = new Entity(new Concept.Border(1, 5));
+    final Entity e = new Entity(new Concept.Border(1, 5));
     assertEquals(5, e.getMaxRightPosition());
 
-    List<Border> borders = e.getBorders();
+    final List<Border> borders = e.getBorders();
     borders.clear();
     borders.add(new Concept.Border(1, 5));
     borders.add(new Concept.Border(3, 20));
