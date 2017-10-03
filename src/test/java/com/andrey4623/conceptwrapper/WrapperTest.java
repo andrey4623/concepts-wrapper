@@ -17,8 +17,6 @@ import org.junit.jupiter.api.Test;
 
 class WrapperTest {
 
-  private static final String ILLEGAL_ARGUMENT_EXCEPTION_MSG = "isConceptBorderEligible is false";
-
   @Test
   void emptyStringNoConcepts() {
     final String actual = Wrapper.wrap("", new ArrayList<>());
@@ -51,7 +49,9 @@ class WrapperTest {
     final Throwable exception = assertThrows(IllegalArgumentException.class,
         () -> Wrapper.wrap("", concepts));
 
-    assertEquals(ILLEGAL_ARGUMENT_EXCEPTION_MSG, exception.getMessage());
+    assertEquals("Border(s) is not valid in concept "
+        + "com.andrey4623.conceptwrapper.concept.Entity: the min left position is 14; "
+        + "the max right position is 22; the source string length: 0", exception.getMessage());
   }
 
   @Test
@@ -62,7 +62,9 @@ class WrapperTest {
     final Throwable exception = assertThrows(IllegalArgumentException.class,
         () -> Wrapper.wrap("S", concepts));
 
-    assertEquals(ILLEGAL_ARGUMENT_EXCEPTION_MSG, exception.getMessage());
+    assertEquals("Border(s) is not valid in concept "
+        + "com.andrey4623.conceptwrapper.concept.Entity: the min left position is 14; "
+        + "the max right position is 22; the source string length: 1", exception.getMessage());
   }
 
   @Test
@@ -73,7 +75,9 @@ class WrapperTest {
     final Throwable exception = assertThrows(IllegalArgumentException.class,
         () -> Wrapper.wrap("St", concepts));
 
-    assertEquals(ILLEGAL_ARGUMENT_EXCEPTION_MSG, exception.getMessage());
+    assertEquals("Border(s) is not valid in concept "
+        + "com.andrey4623.conceptwrapper.concept.Entity: the min left position is 14; "
+        + "the max right position is 22; the source string length: 2", exception.getMessage());
   }
 
   @Test
@@ -133,7 +137,11 @@ class WrapperTest {
     final Throwable exception = assertThrows(IllegalArgumentException.class,
         () -> Wrapper.wrap(source, concepts));
 
-    assertEquals(ILLEGAL_ARGUMENT_EXCEPTION_MSG, exception.getMessage());
+    assertEquals(
+        "Border(s) is not valid in concept com.andrey4623.conceptwrapper.concept.Twitter:"
+            + " the min left position is 55; the max right position is 67;"
+            + " the source string length: 65",
+        exception.getMessage());
   }
 
   @Test

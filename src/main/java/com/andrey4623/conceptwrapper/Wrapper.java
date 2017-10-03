@@ -11,26 +11,23 @@ import java.util.List;
 public class Wrapper {
 
   public static String wrap(final String source, final List<Concept> concepts) {
+    validateBorders(concepts, source.length());
     sort(concepts);
-    final char[] arr = source.toCharArray();
-    validateConcepts(arr, concepts);
-    return doWrap(arr, concepts);
+    return doWrap(source.toCharArray(), concepts);
   }
 
-  private static void sort(final List<Concept> concepts) {
-    concepts.sort(Comparator.comparingInt(Concept::getMinLeftPosition));
-  }
-
-  private static void validateConcepts(final char[] sourceCharArray, final List<Concept> concepts) {
+  private static void validateBorders(final List<Concept> concepts,
+      final int sourceStringLength) {
     if (concepts.isEmpty()) {
       return;
     }
 
-    // Verify the first and the last concepts.
-    if (!isConceptBorderEligible(concepts.get(0), sourceCharArray.length) ||
-        !isConceptBorderEligible(concepts.get(concepts.size() - 1), sourceCharArray.length)) {
-      throw new IllegalArgumentException("isConceptBorderEligible is false");
-    }
+    validateBorders(findMinLeftBorderConcept(concepts), sourceStringLength);
+    validateBorders(findMaxRightBorderConcept(concepts), sourceStringLength);
+  }
+
+  private static void sort(final List<Concept> concepts) {
+    concepts.sort(Comparator.comparingInt(Concept::getMinLeftPosition));
   }
 
   private static String doWrap(final char[] arr, final List<Concept> concepts) {
@@ -61,15 +58,40 @@ public class Wrapper {
     return out.toString();
   }
 
-  private static boolean isConceptBorderEligible(final Concept concept, final int sourceStringLength) {
+  private static void validateBorders(final Concept concept, final int sourceStringLength) {
+    if (!areConceptBordersValid(concept, sourceStringLength)) {
+      throw new IllegalArgumentException(getErrorMessage(concept, sourceStringLength));
+    }
+  }
+
+  private static Concept findMinLeftBorderConcept(final List<Concept> concepts) {
+    return concepts.stream()
+        .min(Comparator.comparingInt(Concept::getMinLeftPosition)).orElse(null);
+  }
+
+  private static Concept findMaxRightBorderConcept(final List<Concept> concepts) {
+    return concepts.stream()
+        .max(Comparator.comparingInt(Concept::getMaxRightPosition)).orElse(null);
+  }
+
+  private static void copy(final int from, final int to, final char[] arr,
+      final StringBuilder out) {
+    for (int i = from; i < to; i++) {
+      out.append(arr[i]);
+    }
+  }
+
+  private static boolean areConceptBordersValid(final Concept concept, final int sourceStringLength) {
     return concept.getMinLeftPosition() >= 0 && concept.getMinLeftPosition() < sourceStringLength
         && concept.getMaxRightPosition() >= concept.getMinLeftPosition()
         && concept.getMaxRightPosition() <= sourceStringLength;
   }
 
-  private static void copy(final int from, final int to, final char[] arr, final StringBuilder out) {
-    for (int i = from; i < to; i++) {
-      out.append(arr[i]);
-    }
+  private static String getErrorMessage(final Concept concept, final int sourceStringLength) {
+    return String.format(
+        "Border(s) is not valid in concept %s: the min left position is %d; "
+            + "the max right position is %d; the source string length: %d",
+        concept.getClass().getName(), concept.getMinLeftPosition(), concept.getMaxRightPosition(),
+        sourceStringLength);
   }
 }
